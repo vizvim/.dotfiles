@@ -1,0 +1,10 @@
+.DS_Store
+.vscode
+
+custom/**/*.*sh
+
+Brewfile.lock.json
+
+# Sheldon
+home/.sheldon/repos
+home/.sheldon/plugins.lock

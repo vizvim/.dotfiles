@@ -1,0 +1,59 @@
+- clean: ["~"]
+
+- link:
+    ~/:
+      glob: true
+      path: home/.*
+      create: true
+      relink: true
+      force: true
+
+- create:
+    - ~/.config
+    - ~/Projects
+
+- link:
+    ~/.config/bat/config:
+      glob: true
+      path: home/bat/config
+      create: true
+      relink: true
+      force: true
+    ~/.config/kitty:
+      glob: true
+      path: home/kitty/*
+      create: true
+      relink: true
+      force: true
+    ~/.config/lvim/config.lua:
+      glob: true
+      path: home/lvim/config.lua
+      create: true
+      relink: true
+      force: true
+    ~/.config/sheldon:
+      glob: true
+      path: home/sheldon
+      create: true
+      relink: true
+      force: true
+    ~/.config/lvim/lua/user:
+      glob: true
+      path: home/lvim/lua/user/*
+      create: true
+      relink: true
+      force: true
+    ~/.config/starship.toml:
+      glob: true
+      path: home/starship.toml
+      create: true
+      relink: true
+      force: true
+
+- shell:
+    - description: Install submodules
+      command: git submodule update --init --recursive
+    - description: Bootstraps your system
+      command: ./scripts/bootstrap
+      stdout: true
+      stderr: true

@@ -1,0 +1,20 @@
+# Folder view configuration files
+.DS_Store
+desktop.ini
+
+# Thumbnail cache files
+Thumbs.db
+
+# Installed NPM modules
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Editor`s configs
+*.sublime-*
+.tern-project
+.vscode
+.idea
+
+# Java
+target/
