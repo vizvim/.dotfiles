@@ -43,7 +43,6 @@ finish() {
 export DOTFILES=${1:-"$HOME/.dotfiles"}
 GITHUB_REPO_URL_BASE="https://github.com/kylebrantley/.dotfiles"
 HOMEBREW_INSTALLER_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-LUNARVIM_INSTALLER_URL="https://raw.githubusercontent.com/lunarvim/lunarvim/fc6873809934917b470bff1b072171879899a36b/utils/installer/install.sh"
 
 install_homebrew() {
     info "Trying to detect installed Homebrew..."
@@ -91,18 +90,6 @@ install_brew_packages() {
     finish
 }
 
-install_lunarvim() {
-    if ! _exists lvim; then
-        # Using the latest and greatest lvim version
-        LV_BRANCH='release-1.2/neovim-0.8'
-        bash -c "$(curl -s ${LUNARVIM_INSTALLER_URL})"
-    else
-        success "Lunarvim is already installed"
-    fi
-
-    finish
-}
-
 on_finish() {
     echo
     success "Setup was successfull!"
@@ -119,7 +106,6 @@ on_error() {
 main() {
     install_homebrew "$*"
     install_brew_packages "$*"
-    install_lunarvim "$*"
     on_finish "$*"
 }
 

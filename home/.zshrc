@@ -9,7 +9,7 @@
 # Export path to root of dotfiles repo
 export DOTFILES=${DOTFILES:="$HOME/.dotfiles"}
 export KUBECONFIG=~/.kube/config
-export EDITOR='lvim'
+export EDITOR='nvim'
 export GPG_TTY=$(tty)
 
 # Do not override files using `>`, but it's still possible using `>!`
@@ -32,11 +32,6 @@ _exists() {
 [[ -d "/opt/homebrew/bin" ]] && _extend_path "/opt/homebrew/bin"
 [[ -d "/opt/homebrew/sbin" ]] && _extend_path "/opt/homebrew/sbin"
 [[ -d "$HOME/.local/bin" ]] && _extend_path "$HOME/.local/bin"
-
-# jenv init
-if _exists jenv; then
-    eval "$(jenv init -)"
-fi
 
 # GO
 if [[ -d "$HOME/go/bin" ]]; then
@@ -79,7 +74,6 @@ plugins=(
     git
     history-substring-search
     kubectl
-    nvm
     ssh-agent
     docker
 )
@@ -107,10 +101,6 @@ if [[ "${#custom_files[@]}" -gt 0 ]]; then
     for file in "${custom_files[@]}"; do
         source $file
     done
-fi
-
-if _exists bat; then
-    alias cat=bat
 fi
 
 # Keep this at the end

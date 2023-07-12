@@ -25,21 +25,9 @@
       create: true
       relink: true
       force: true
-    ~/.config/lvim/config.lua:
-      glob: true
-      path: home/lvim/config.lua
-      create: true
-      relink: true
-      force: true
     ~/.config/sheldon:
       glob: true
       path: home/sheldon
-      create: true
-      relink: true
-      force: true
-    ~/.config/lvim/lua/user:
-      glob: true
-      path: home/lvim/lua/user/*
       create: true
       relink: true
       force: true
