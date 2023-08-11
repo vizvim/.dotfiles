@@ -10,3 +10,7 @@ alias path='echo -e ${PATH//:/\\n}'
 if _exists bat; then
   alias cat='bat'
 fi
+
+if _exists exa; then
+  alias ls='exa'
+fi
