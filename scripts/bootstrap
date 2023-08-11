@@ -81,6 +81,8 @@ install_brew_packages() {
     # Homebrew Bundle
     if _exists brew; then
         brew bundle
+
+        
     else
         error "Error: Brew is not available"
     fi
@@ -88,6 +90,11 @@ install_brew_packages() {
     cd -
 
     finish
+}
+
+start_launchD_services() {
+    yabai --start-service
+    skhd --start-service
 }
 
 on_finish() {
@@ -106,6 +113,7 @@ on_error() {
 main() {
     install_homebrew "$*"
     install_brew_packages "$*"
+    start_launchD_services "$*"
     on_finish "$*"
 }
 

@@ -31,9 +31,21 @@
       create: true
       relink: true
       force: true
+    ~/.config/skhd:
+      glob: true
+      path: home/skhd
+      create: true
+      relink: true
+      force: true
     ~/.config/starship.toml:
       glob: true
       path: home/starship.toml
+      create: true
+      relink: true
+      force: true
+    ~/.config/yabai:
+      glob: true
+      path: home/yabai
       create: true
       relink: true
       force: true

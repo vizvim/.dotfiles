@@ -14,6 +14,11 @@ brew "gnupg"
 brew "wget"
 brew "terminal-notifier"
 brew "starship"
+brew "jq"
+
+# Window management
+brew "koekeishiya/formulae/skhd"
+brew "koekeishiya/formulae/yabai"
 
 # Fonts
 tap "homebrew/cask-fonts"
@@ -22,6 +27,7 @@ cask "font-jetbrains-mono"
 # Development
 cask "visual-studio-code"
 cask "kitty"
+cask "postman"
 
 # Go
 brew "go"
