@@ -15,6 +15,7 @@ brew "wget"
 brew "terminal-notifier"
 brew "starship"
 brew "jq"
+brew "exa"
 
 # Window management
 brew "koekeishiya/formulae/skhd"

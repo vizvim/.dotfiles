@@ -20,7 +20,7 @@ shift + alt + ctrl - l : yabai -m window --warp east
 alt - r : yabai -m space --rotate 90
 
 # toggle window fullscreen zoom
-alt - f : yabai -m window --toggle zoom-fullscreen
+cmd - f : yabai -m window --toggle zoom-fullscreen
 
 # alt - s : yabai -m window --toggle
 alt - s : yabai -m window --toggle sticky;\
@@ -31,14 +31,14 @@ alt - s : yabai -m window --toggle sticky;\
 alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 
 # float / unfloat window and center on screen
-alt - t : yabai -m window --toggle float;\
+alt - f : yabai -m window --toggle float;\
           yabai -m window --grid 4:4:1:1:2:2
 
 # toggle window split type
 alt - e : yabai -m window --toggle split
 
 # balance size of windows
-shift + alt - 0 : yabai -m space --balance
+shift + alt - b : yabai -m space --balance
 
 # move window and focus desktop
 shift + alt - 1 : yabai -m window --space 1; yabai -m space --focus 1
