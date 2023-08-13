@@ -6,6 +6,7 @@ alias dotfiles="~/.dotfiles"
 alias e="$EDITOR"
 alias reload="source $HOME/.zshrc"
 alias path='echo -e ${PATH//:/\\n}'
+alias main='git checkout main'
 
 if _exists bat; then
   alias cat='bat'
