@@ -13,5 +13,5 @@ if _exists bat; then
 fi
 
 if _exists exa; then
-  alias ls='exa'
+  alias ls='exa --icons'
 fi
