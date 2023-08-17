@@ -33,6 +33,11 @@ _exists() {
 [[ -d "/opt/homebrew/sbin" ]] && _extend_path "/opt/homebrew/sbin"
 [[ -d "$HOME/.local/bin" ]] && _extend_path "$HOME/.local/bin"
 
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # GO
 if [[ -d "$HOME/go/bin" ]]; then
     # export GOPRIVATE=""
@@ -76,6 +81,7 @@ plugins=(
     kubectl
     ssh-agent
     docker
+    nvm
 )
 
 # Autoload the node version based on the directory's .nvmrc
