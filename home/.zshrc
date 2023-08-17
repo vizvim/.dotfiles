@@ -110,5 +110,4 @@ if [[ "${#custom_files[@]}" -gt 0 ]]; then
 fi
 
 # Keep this at the end
-eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
