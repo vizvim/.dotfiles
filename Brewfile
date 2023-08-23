@@ -39,6 +39,7 @@ brew "kind"
 brew "kubernetes-cli"
 
 cask "spotify"
+cask "1password"
 
 # Neovim
 brew "neovim"
