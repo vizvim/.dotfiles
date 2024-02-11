@@ -49,6 +49,12 @@
       create: true
       relink: true
       force: true
+    ~/.config/nvim:
+      glob: true
+      path: home/nvim
+      create: true
+      relink: true
+      force: true
 
 - shell:
     - description: Install submodules
