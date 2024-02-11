@@ -24,6 +24,9 @@ brew "koekeishiya/formulae/yabai"
 # Fonts
 tap "homebrew/cask-fonts"
 cask "font-jetbrains-mono"
+cask "font-symbols-only-nerd-font"
+
+cask "1password"
 
 # Development
 cask "visual-studio-code"
