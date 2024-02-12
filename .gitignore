@@ -9,3 +9,7 @@ Brewfile.lock.json
 # Sheldon
 home/.sheldon/repos
 home/.sheldon/plugins.lock
+
+# nvim
+home/nvim/lazy-lock.json
+home/nvim/lazyvim.json
