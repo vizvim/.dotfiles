@@ -30,7 +30,6 @@ cask "1password"
 
 # Development
 cask "visual-studio-code"
-cask "kitty"
 cask "postman"
 
 # Go

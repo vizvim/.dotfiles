@@ -19,9 +19,9 @@
       create: true
       relink: true
       force: true
-    ~/.config/kitty:
+    ~/.config/wezterm:
       glob: true
-      path: home/kitty/*
+      path: home/wezterm
       create: true
       relink: true
       force: true

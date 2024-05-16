@@ -86,7 +86,6 @@ plugins=(
     history-substring-search
     kubectl
     ssh-agent
-    docker
     nvm
 )
 
@@ -95,13 +94,6 @@ zstyle ':omz:plugins:nvm' autoload yes
 export DISABLE_MAGIC_FUNCTIONS=true
 
 eval "$(sheldon source)"
-
-if test -n "$KITTY_INSTALLATION_DIR"; then
-    export KITTY_SHELL_INTEGRATION="enabled"
-    autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
-    kitty-integration
-    unfunction kitty-integration
-fi
 
 # ------------------------------------------------------------------------------
 # Overrides
