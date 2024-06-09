@@ -12,6 +12,7 @@ if _exists bat; then
   alias cat='bat'
 fi
 
-if _exists exa; then
-  alias ls='exa --icons'
+if _exists eza; then
+  alias ls="eza -la --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+  alias tree="eza --tree --color=always --icons=always"
 fi

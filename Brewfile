@@ -1,21 +1,15 @@
 # Homebrew Bundle
 # https://github.com/Homebrew/homebrew-bundle
-
 brew "git"
-brew "zsh"
-brew "zsh-completions"
 brew "bat"
 brew "node"
 brew "yarn"
 brew "nvm"
-brew "sheldon"
-brew "tree"
 brew "gnupg"
 brew "wget"
 brew "terminal-notifier"
-brew "starship"
 brew "jq"
-brew "exa"
+brew "eza"
 
 # Window management
 brew "koekeishiya/formulae/skhd"
@@ -35,8 +29,8 @@ cask "postman"
 # Go
 brew "go"
 
-brew "docker"
-brew "helm"
+brew "podman"
+cask "podman-desktop"
 brew "kind"
 brew "kubernetes-cli"
 
