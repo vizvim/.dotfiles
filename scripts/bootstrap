@@ -14,29 +14,29 @@ YELLOW="${e}[0;93m"
 GREEN="${e}[0;92m"
 
 _exists() {
-    command -v "$1" >/dev/null 2>&1
+	command -v "$1" >/dev/null 2>&1
 }
 
 # Success reporter
 info() {
-    echo -e "${CYAN}${*}${RESET}"
+	echo -e "${CYAN}${*}${RESET}"
 }
 
 # Error reporter
 error() {
-    echo -e "${RED}${*}${RESET}"
+	echo -e "${RED}${*}${RESET}"
 }
 
 # Success reporter
 success() {
-    echo -e "${GREEN}${*}${RESET}"
+	echo -e "${GREEN}${*}${RESET}"
 }
 
 # End section
 finish() {
-    success "Done!"
-    echo
-    sleep 1
+	success "Done!"
+	echo
+	sleep 1
 }
 
 # Set directory
@@ -45,76 +45,75 @@ GITHUB_REPO_URL_BASE="https://github.com/kylebrantley/.dotfiles"
 HOMEBREW_INSTALLER_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
 
 install_homebrew() {
-    info "Trying to detect installed Homebrew..."
+	info "Trying to detect installed Homebrew..."
 
-    if ! _exists brew; then
-        echo "Seems like you don't have Homebrew installed!"
-        read -p "Do you agree to proceed with Homebrew installation? [y/N] " -n 1 answer
-        echo
-        if [ "${answer}" != "y" ]; then
-            exit 1
-        fi
+	if ! _exists brew; then
+		echo "Seems like you don't have Homebrew installed!"
+		read -p "Do you agree to proceed with Homebrew installation? [y/N] " -n 1 answer
+		echo
+		if [ "${answer}" != "y" ]; then
+			exit 1
+		fi
 
-        info "Installing Homebrew..."
-        bash -c "$(curl -fsSL ${HOMEBREW_INSTALLER_URL})"
+		info "Installing Homebrew..."
+		bash -c "$(curl -fsSL ${HOMEBREW_INSTALLER_URL})"
 
-        export PATH="/opt/homebrew/bin:$PATH"
-        export PATH="/opt/homebrew/sbin:$PATH"
-    else
-        success "You already have Homebrew installed. Skipping..."
-        export PATH="/opt/homebrew/bin:$PATH"
-        export PATH="/opt/homebrew/sbin:$PATH"
-    fi
+		export PATH="/opt/homebrew/bin:$PATH"
+		export PATH="/opt/homebrew/sbin:$PATH"
+	else
+		success "You already have Homebrew installed. Skipping..."
+		export PATH="/opt/homebrew/bin:$PATH"
+		export PATH="/opt/homebrew/sbin:$PATH"
+	fi
 
-    finish
+	finish
 }
 
 install_brew_packages() {
-    if [ "$(uname)" != "Darwin" ]; then
-        return
-    fi
+	if [ "$(uname)" != "Darwin" ]; then
+		return
+	fi
 
-    info "Installing software..."
+	info "Installing software..."
 
-    cd "$DOTFILES"
+	cd "$DOTFILES"
 
-    # Homebrew Bundle
-    if _exists brew; then
-        brew bundle
+	# Homebrew Bundle
+	if _exists brew; then
+		brew bundle
 
-        
-    else
-        error "Error: Brew is not available"
-    fi
+	else
+		error "Error: Brew is not available"
+	fi
 
-    cd -
+	cd -
 
-    finish
+	finish
 }
 
 start_launchD_services() {
-    yabai --start-service
-    skhd --start-service
+	yabai --start-service
+	skhd --start-service
 }
 
 on_finish() {
-    echo
-    success "Setup was successfull!"
-    echo
+	echo
+	success "Setup was successfull!"
+	echo
 }
 
 on_error() {
-    echo
-    error "Something broke"
-    echo
-    exit 1
+	echo
+	error "Something broke"
+	echo
+	exit 1
 }
 
 main() {
-    install_homebrew "$*"
-    install_brew_packages "$*"
-    start_launchD_services "$*"
-    on_finish "$*"
+	install_homebrew "$*"
+	install_brew_packages "$*"
+	start_launchD_services "$*"
+	on_finish "$*"
 }
 
 main "$*"

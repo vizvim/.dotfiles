@@ -25,12 +25,6 @@
       create: true
       relink: true
       force: true
-    ~/.config/sheldon:
-      glob: true
-      path: home/sheldon
-      create: true
-      relink: true
-      force: true
     ~/.config/skhd:
       glob: true
       path: home/skhd

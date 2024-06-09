@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
-config.color_scheme = "Rosé Pine (Gogh)"
+config.color_scheme = "Tokyo Night Moon"
 
 config.font = wezterm.font("Berkeley Mono")
 config.freetype_load_flags = "NO_HINTING"

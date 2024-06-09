@@ -1,12 +1,12 @@
 return {
 	-- add gruvbox
-	{ "rose-pine/neovim" },
+	{ "folke/tokyonight.nvim" },
 
 	-- Configure LazyVim to load gruvbox
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = "rose-pine",
+			colorscheme = "tokyonight-moon",
 		},
 	},
 }
