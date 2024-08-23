@@ -1,6 +1,7 @@
 [ -d ~/Projects ]  && alias pj='cd ~/Projects'
 [ -d ~/.dotfiles ] && alias dotfiles='cd ~/.dotfiles'
 
+alias cd="z"
 alias clr="clear"
 alias dotfiles="~/.dotfiles"
 alias e="$EDITOR"

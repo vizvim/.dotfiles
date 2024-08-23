@@ -5,7 +5,9 @@ local config = wezterm.config_builder()
 config.color_scheme = "Tokyo Night Moon"
 
 config.font = wezterm.font("Berkeley Mono")
+config.font_size = 12.0
 config.freetype_load_flags = "NO_HINTING"
+config.hide_tab_bar_if_only_one_tab = true
 
 config.keys = {
 	{

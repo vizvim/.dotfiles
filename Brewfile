@@ -10,6 +10,9 @@ brew "wget"
 brew "terminal-notifier"
 brew "jq"
 brew "eza"
+brew "zoxide"
+
+cask "shottr"
 
 # Window management
 brew "koekeishiya/formulae/skhd"
@@ -26,11 +29,13 @@ cask "1password"
 cask "visual-studio-code"
 cask "postman"
 
+brew "colima"
+brew "docker"
+brew "docker-compose"
+
 # Go
 brew "go"
 
-brew "podman"
-cask "podman-desktop"
 brew "kind"
 brew "kubernetes-cli"
 

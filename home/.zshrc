@@ -52,10 +52,13 @@ _exists() {
 
 # Add custom bin to $PATH
 [[ -d "$HOME/.bin" ]] && _extend_path "$HOME/.bin"
+[[ -d "$HOME/bin" ]] && _extend_path "$HOME/bin"
 [[ -d "$HOME/go/bin" ]] && _extend_path "$HOME/go/bin"
 [[ -d "/opt/homebrew/bin" ]] && _extend_path "/opt/homebrew/bin"
 [[ -d "/opt/homebrew/sbin" ]] && _extend_path "/opt/homebrew/sbin"
 [[ -d "$HOME/.local/bin" ]] && _extend_path "$HOME/.local/bin"
+
+export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
@@ -157,5 +160,6 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Keep this at the end
+eval "$(zoxide init zsh)"
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
