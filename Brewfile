@@ -1,21 +1,18 @@
 # Homebrew Bundle
 # https://github.com/Homebrew/homebrew-bundle
-
 brew "git"
-brew "zsh"
-brew "zsh-completions"
 brew "bat"
 brew "node"
 brew "yarn"
 brew "nvm"
-brew "sheldon"
-brew "tree"
 brew "gnupg"
 brew "wget"
 brew "terminal-notifier"
-brew "starship"
 brew "jq"
-brew "exa"
+brew "eza"
+brew "zoxide"
+
+cask "shottr"
 
 # Window management
 brew "koekeishiya/formulae/skhd"
@@ -32,11 +29,13 @@ cask "1password"
 cask "visual-studio-code"
 cask "postman"
 
+brew "colima"
+brew "docker"
+brew "docker-compose"
+
 # Go
 brew "go"
 
-brew "docker"
-brew "helm"
 brew "kind"
 brew "kubernetes-cli"
 

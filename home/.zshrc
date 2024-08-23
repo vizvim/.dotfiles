@@ -1,25 +1,43 @@
-#
-# ~/.zshrc
-#
+if [[ -f "/opt/homebrew/bin/brew" ]] then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
-# ------------------------------------------------------------------------------
-# Environment
-# ------------------------------------------------------------------------------
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+# Source/Load zinit
+source "${ZINIT_HOME}/zinit.zsh"
+
+zinit ice as"command" from"gh-r" \
+  atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+  atpull"%atclone" src"init.zsh"
+zinit light starship/starship
+
+# Add in zsh plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+
+# Add in snippets
+zinit snippet OMZP::git
+zinit snippet OMZP::command-not-found
+zinit snippet OMZP::ssh-agent
+
+# Load completions
+autoload -Uz compinit && compinit
+
+zinit cdreplay -q
 
 # Export path to root of dotfiles repo
 export DOTFILES=${DOTFILES:="$HOME/.dotfiles"}
 export KUBECONFIG=~/.kube/config
 export EDITOR='nvim'
 export GPG_TTY=$(tty)
-
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
---color=fg:#c0caf5,bg:#24283b,hl:#ff9e64 \
---color=fg+:#c0caf5,bg+:#292e42,hl+:#ff9e64 \
---color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
---color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"
-
-# Do not override files using `>`, but it's still possible using `>!`
-set -o noclobber
 
 # Extend $PATH without duplicates
 _extend_path() {
@@ -34,10 +52,13 @@ _exists() {
 
 # Add custom bin to $PATH
 [[ -d "$HOME/.bin" ]] && _extend_path "$HOME/.bin"
+[[ -d "$HOME/bin" ]] && _extend_path "$HOME/bin"
 [[ -d "$HOME/go/bin" ]] && _extend_path "$HOME/go/bin"
 [[ -d "/opt/homebrew/bin" ]] && _extend_path "/opt/homebrew/bin"
 [[ -d "/opt/homebrew/sbin" ]] && _extend_path "/opt/homebrew/sbin"
 [[ -d "$HOME/.local/bin" ]] && _extend_path "$HOME/.local/bin"
+
+export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
@@ -72,32 +93,6 @@ less_opts=(
 
 export LESS="${less_opts[*]}"
 
-# ------------------------------------------------------------------------------
-# Dependencies
-# ------------------------------------------------------------------------------
-
-# OMZ is managed by Sheldon
-export ZSH="$HOME/.local/share/sheldon/repos/github.com/ohmyzsh/ohmyzsh"
-
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
-plugins=(
-    common-aliases
-    git
-    history-substring-search
-    kubectl
-    ssh-agent
-    nvm
-)
-
-# Autoload the node version based on the directory's .nvmrc
-zstyle ':omz:plugins:nvm' autoload yes
-export DISABLE_MAGIC_FUNCTIONS=true
-
-eval "$(sheldon source)"
-
-# ------------------------------------------------------------------------------
-# Overrides
-# ------------------------------------------------------------------------------
 
 # Sourcing all zsh files from $DOTFILES/custom
 custom_files=($(find $DOTFILES/custom -type f -name "*.*sh"))
@@ -107,5 +102,64 @@ if [[ "${#custom_files[@]}" -gt 0 ]]; then
     done
 fi
 
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+--color=fg:#c8d3f5,bg:#222436,hl:#ff966c \
+--color=fg+:#c8d3f5,bg+:#2f334d,hl+:#ff966c \
+--color=info:#82aaff,prompt:#86e1fc,pointer:#86e1fc \
+--color=marker:#c3e88d,spinner:#c3e88d,header:#c3e88d"
+
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+_fzf_compgen_path() {
+  fd --hidden --exclude .git . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type=d --hidden --exclude .git . "$1"
+}
+
+show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+
+export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo \${}'"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+  esac
+}
+
+# History
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
 # Keep this at the end
+eval "$(zoxide init zsh)"
+eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
