@@ -1,12 +1,12 @@
 return {
-	-- add gruvbox
-	{ "folke/tokyonight.nvim" },
+  -- install the colorscheme
+  { "folke/tokyonight.nvim" },
 
-	-- Configure LazyVim to load gruvbox
-	{
-		"LazyVim/LazyVim",
-		opts = {
-			colorscheme = "tokyonight-night",
-		},
-	},
+  -- configure LazyVim to load it
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "tokyonight-night",
+    },
+  },
 }
