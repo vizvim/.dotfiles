@@ -91,6 +91,31 @@ install_brew_packages() {
 	finish
 }
 
+symlink_dotfiles() {
+	info "Symlinking dotfiles with GNU stow..."
+
+	if ! _exists stow; then
+		error "Error: stow is not available"
+		return
+	fi
+
+	cd "$DOTFILES"
+
+	# Each top-level directory (except custom/ and scripts/, see
+	# .stow-local-ignore) is a stow package whose contents are linked into $HOME.
+	for package in */; do
+		package="${package%/}"
+		case "$package" in
+		custom | scripts) continue ;;
+		esac
+		stow --restow --target="$HOME" "$package"
+	done
+
+	cd -
+
+	finish
+}
+
 start_launchD_services() {
 	yabai --start-service
 	skhd --start-service
@@ -112,6 +137,7 @@ on_error() {
 main() {
 	install_homebrew "$*"
 	install_brew_packages "$*"
+	symlink_dotfiles "$*"
 	start_launchD_services "$*"
 	on_finish "$*"
 }
