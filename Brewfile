@@ -11,6 +11,7 @@ brew "terminal-notifier"
 brew "jq"
 brew "eza"
 brew "zoxide"
+brew "stow"
 
 cask "shottr"
 

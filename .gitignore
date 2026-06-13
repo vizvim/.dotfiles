@@ -1,15 +1,8 @@
 .DS_Store
 .vscode
 
-custom/**/*.*sh
-!custom/**/*.*sh
-
 Brewfile.lock.json
 
-# Sheldon
-home/.sheldon/repos
-home/.sheldon/plugins.lock
-
-# nvim
-home/nvim/lazy-lock.json
-home/nvim/lazyvim.json
+# nvim (machine-generated lockfiles)
+nvim/.config/nvim/lazy-lock.json
+nvim/.config/nvim/lazyvim.json
