@@ -1,6 +1,7 @@
 return {
-	"nvim-lspconfig",
-	opts = {
-		inlay_hints = { enabled = false },
-	},
+  "neovim/nvim-lspconfig",
+  opts = {
+    -- inlay hints are off by default; toggle per-buffer with <leader>uh
+    inlay_hints = { enabled = false },
+  },
 }

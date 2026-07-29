@@ -50,6 +50,8 @@ _exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
+export PYENV_ROOT="$HOME/.pyenv"
+
 # Add custom bin to $PATH
 [[ -d "$HOME/.bin" ]] && _extend_path "$HOME/.bin"
 [[ -d "$HOME/bin" ]] && _extend_path "$HOME/bin"
@@ -57,8 +59,21 @@ _exists() {
 [[ -d "/opt/homebrew/bin" ]] && _extend_path "/opt/homebrew/bin"
 [[ -d "/opt/homebrew/sbin" ]] && _extend_path "/opt/homebrew/sbin"
 [[ -d "$HOME/.local/bin" ]] && _extend_path "$HOME/.local/bin"
+[[ -d $PYENV_ROOT/bin ]] && _extend_path "$PYENV_ROOT/bin:$PATH"
 
 export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
+export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE="/var/run/docker.sock"
+
+export GOPRIVATE="dev.azure.com/echo-it,github.com/Echo-Global-Logistics-Inc/*,echo.buf.dev"
+
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+_extend_path "/usr/local/share/dotnet/dotnet"
+
+export NODE_EXTRA_CA_CERTS="$HOME/.certs/echo-root.pem"
+unset SSL_CERT_FILE
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
@@ -67,8 +82,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # GO
 if [[ -d "$HOME/go/bin" ]]; then
-    # export GOPRIVATE=""
-    # export GOPROXY=""
     # export GOSUMDB=""
     export GOPATH="$HOME/go"
     export GOBIN="$HOME/go/bin"
@@ -101,12 +114,6 @@ if [[ "${#custom_files[@]}" -gt 0 ]]; then
         source $file
     done
 fi
-
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
---color=fg:#c8d3f5,bg:#222436,hl:#ff966c \
---color=fg+:#c8d3f5,bg+:#2f334d,hl+:#ff966c \
---color=info:#82aaff,prompt:#86e1fc,pointer:#86e1fc \
---color=marker:#c3e88d,spinner:#c3e88d,header:#c3e88d"
 
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -159,7 +166,16 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-# Keep this at the end
-eval "$(zoxide init zsh)"
+export BUF_TOKEN="$(awk '/machine echo.buf.dev/{f=1} f && /password/{print $2; exit}' ~/.netrc 2>/dev/null)"
+# export JFROG_TOKEN=""
+
+# Trust macOS Keychain CAs (corporate TLS proxy) so Node/pnpm fetch works
+#eval "$(pyenv init - zsh)"
+
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
+
+
+# zoxide must be initialized last so its chpwd/precmd hook isn't clobbered by
+# other tools (fzf, starship). See: zoxide doctor warning.
+eval "$(zoxide init zsh)" export NODE_OPTIONS=--use-system-ca

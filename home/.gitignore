@@ -16,5 +16,14 @@ yarn-error.log
 .vscode
 .idea
 
+.worktrees
+
+# Vim/Neovim swap & backup files
+*.swp
+*.swo
+*~
+
+.claude
+
 # Java
 target/
